@@ -1,0 +1,64 @@
+Tuto intégrer Apollo,Graphql,React,Django,CSRF,CORS,JWT
+
+étape:
+    backend:
+        Mise en place:
+            - Installer les dépendance:
+                django
+                django-cors-headers
+                graphene_django
+                django-filter
+            - Créer un project avec startproject
+            - Créer une app avec startapp
+            - Créer un model quelconque (exemple: graphApp/models.py)
+            - Créer une classe DjangoObjectType avec le model créer (exemple: graphApp/schema.py)
+            - Ajouter l'app et le cors dans settings.py (exemple: backend/settings.py)
+            - Lui dire que le cors ne doit pas étre accepter de n'importe ou, ainsi que whitelist et trust l'adresse de l'application react (default: http://localhost:3000/)
+        CSRF (Cross site request forgery):
+            - Créer un fichier csrf dans le dossier de votre project (la ou est settings.py)
+            - Créer une view et retourner la reponse en json et mettre le token dedans (exemple: backend/csrf.py)
+            - Importer et placer la view dans urls.py du dossier backend
+    frontend:
+        Mise en place:
+            - Faire un npm init -y pour créer le package.json
+            - Installer les dépendance:
+                create-react-app
+            - Une fois installer faite:
+                npx create-react-app <le nom de l'app>
+            - Ensuite cd dans le dosser de l'app react
+            - Installer les dépendance:
+                apollo-boost
+                @apollo/react-hooks
+                graphql
+                redux
+                js-cookie
+            - Faite npm start
+            - Une fois le projet lancer nous pouvont nous occuper de graphql
+        GraphQL/Apollo:
+            - Mise en place!
+                - Créer un Client apollo avec new ApolloClient({uri:"Le nom de votre url backend"}) (exemple:"http://localhost:8000/graphql")
+                - Lui indiquer qu'il doit prendre les credentials (information de connection) avec "credentials:'include'"
+                - Lui créer une fonction request dans le ApolloClient
+                - Résumé des paramètre actuelle du client apollo:
+                    ApolloClient({
+                        uri:'http://localhost:8000/graphql',
+                        credentials:"include",
+                        request:function
+                    })
+                - Ecriture de la fonction request:
+                    - La fonction doit ètre asynchrone et prends un paramètre (exemple: async (operation) => {})
+                    - fetch/axios l'url du backend pour le csrf tout en attendant la reponse (exemple: await fetch('http://localhost/csrf'))
+                    - Ensuite attribué le cookie csrf avec Cookie.set("csrftoken",<token-csrf>)
+                    - Après avec le paramètre de la fonction, appeler la fonction setContext
+                    - setContext est une fonction qui prends plusieurs paramètre, en faite setContext permet de mettre les information de la requête. Dans notre cas nous allons juste l'utiliser pour le header
+                    - Ensuite dans setContext écriver: 
+                        headers:{
+                            'X-CSRFToken':<CSRF-token>
+                        }
+                    - Ensuite importer ApolloProvider de @apollo/react-hooks et créer un composant provider qui va prendre un props qui est client, passer lui le ApolloClient. ApolloProvider doit êtrele composant principale de votre application (La racine de votre app)
+                    -Fini
+
+Source:
+    https://www.apollographql.com/docs/react/get-started/
+    https://github.com/graphql-python/graphene-django/issues/593 (Poste par Diggitysc)
+    https://docs.graphene-python.org/projects/django/en/latest/tutorial-plain/

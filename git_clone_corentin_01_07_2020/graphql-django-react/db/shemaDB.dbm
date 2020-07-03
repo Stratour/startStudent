@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1-beta" last-position="0,0" last-zoom="0.95"
+	 default-schema="public" default-owner="postgres">
+<database name="DBStartStudent">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="sch_entity">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="20"/>
+	<column name="sch_ent_pk" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sch_ent_name">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_ent_street">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_ent_num_street">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sch_ent_postCode">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sch_ent_city">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_ent_department">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_ent_country">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="sch_entity_1" type="pk-constr" table="public.sch_entity">
+		<columns names="sch_ent_pk" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="sch_site">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="40" y="280"/>
+	<column name="sch_sit_pk" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sch_sit_name">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_ent_street">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_sit_num_street">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sch_sit_postCode">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sch_sit_city">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_sit_department">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_sit_country">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="sch_sit_entity">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="sch_sit_1" type="pk-constr" table="public.sch_site">
+		<columns names="sch_sit_pk" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="crs_department">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1000" y="20"/>
+	<column name="crs_dpt_pk" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_dpt_name">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_dpt_descriptiion">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_dpt_fk">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="crs_dpt_pk" type="pk-constr" table="public.crs_department">
+		<columns names="crs_dpt_pk" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="crs_section">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1400" y="60"/>
+	<column name="crs_sct_pk">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_sct_name">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_sct_subname">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_sct_codification">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_sct_dept_fk">
+		<type name="integer" length="0"/>
+	</column>
+</table>
+
+<table name="crs_degree">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1400" y="380"/>
+	<column name="crs_deg_pk">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_deg_name">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_deg_fk">
+		<type name="integer" length="0"/>
+	</column>
+</table>
+
+<table name="crs_school_year">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="980" y="500"/>
+	<column name="crs_sch_year_pk">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_sch_year_num">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="crs_sch_year_fk">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="crs_classe">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1220" y="500"/>
+	<column name="crs_cls_pk" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_cls_letter">
+		<type name="varchar" length="2"/>
+	</column>
+	<column name="crs_cls_fk">
+		<type name="integer" length="0"/>
+	</column>
+</table>
+
+<table name="crs_teaching_unit">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="840" y="320"/>
+	<column name="crs_teachunit_pk">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_teachunit_name">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_teachunit_classement">
+		<type name="varchar" length="3"/>
+	</column>
+	<column name="crs_teachunit_codification">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="crs_teachunit_domain">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_teachunit_critical">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="crs_teachunit_periods_number">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_teachunit_ects_number">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_teachunit_fk">
+		<type name="integer" length="0"/>
+	</column>
+</table>
+
+<table name="cursus">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1140" y="220"/>
+	<column name="crs_pk">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_dpt_fk" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_sct_fk">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="crs_deg_fk">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="crs_schyear_fk">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="crs_cls_fk">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="crs_teachunit_fk">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="users">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="800"/>
+	<column name="usr_pk">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="usr_firstname">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="usr_lastname">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="usr_role">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="usr_school">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="usr_cursus">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="usr_coord_fk">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="school">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="480" y="120"/>
+	<column name="sch_entity">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="sch_site">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="sch_director">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="usr_role">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1120" y="660"/>
+	<column name="usr_rol_pk">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="usr_rol_name">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="usr_rol_permission">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="usr_groupe">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1460" y="700"/>
+</table>
+
+<table name="usr_permission">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1440" y="820"/>
+	<column name="usr_perm_pk">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="usr_perm_name">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="usr_perm_id">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="usr_coordonee">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="900" y="660"/>
+</table>
+
+<table name="application">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="260" y="800"/>
+	<column name="app_pk">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="app_name">
+		<type name="varchar" length="0"/>
+	</column>
+</table>
+
+<constraint name="sch_sit_entity_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.sch_entity" table="public.sch_site">
+	<columns names="sch_sit_entity" ref-type="src-columns"/>
+	<columns names="sch_ent_pk" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="crs_dpt_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.sch_site" table="public.crs_department">
+	<columns names="crs_dpt_fk" ref-type="src-columns"/>
+	<columns names="sch_sit_pk" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="crs_sct_dpt_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.crs_department" table="public.crs_section">
+	<columns names="crs_sct_dept_fk" ref-type="src-columns"/>
+	<columns names="crs_dpt_fk" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="crs_deg_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.crs_section" table="public.crs_degree">
+	<columns names="crs_deg_fk" ref-type="src-columns"/>
+	<columns names="crs_sct_pk" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_sch_site_sch_entity" type="relfk"
+	 src-table="public.sch_site"
+	 dst-table="public.sch_entity"
+	 src-required="false" dst-required="false">
+	<label ref-type="src-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="rel_sch_department_sch_site" type="relfk"
+	 src-table="public.crs_department"
+	 dst-table="public.sch_site"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_sch_section_sch_department" type="relfk"
+	 src-table="public.crs_section"
+	 dst-table="public.crs_department"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_sch_degree_sch_section" type="relfk"
+	 src-table="public.crs_degree"
+	 dst-table="public.crs_section"
+	 src-required="false" dst-required="false">
+	<label ref-type="src-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+</dbmodel>

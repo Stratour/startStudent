@@ -1,0 +1,47 @@
+.add_director_button {
+    position: sticky;
+    left:82%;
+    top:4vmax;
+    margin-top:36px;
+    float: left;
+}
+.back {
+    z-index: -1;
+}
+html {
+    padding:0
+}
+header {
+    top:0px;
+    z-index: 100;
+}
+.school_info {
+    height:89%
+}
+.modal-body {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.modal-body h5 {
+    padding-left:6px;
+}
+.modal-body {
+    width:800px !important;
+    filter: brightness(90%)
+}
+.modal-content {
+    margin-left:-200px;
+    width:800px !important;
+}
+.modal-header {
+    background-color: #242124;
+    padding:16px 16px;
+    color:#FFF;
+}
+.modal-header span{
+    color:#FFF; 
+}
+.img-director-school {
+    width:100px;
+}

@@ -1,0 +1,33 @@
+version: "3.0"
+
+services:
+  backend:
+    ports:
+      - 8000:8000
+    command: sh -c 'python manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - ./backend:/backend
+    build: ./backend
+    depends_on: 
+      - db
+  db:
+    image: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./db:/schemaDB/
+    environment: 
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=dev
+  frontend: 
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    command: sh -c 'npm install --prefix app && npm start --prefix app'
+    volumes:
+      - ./frontend:/frontend
+    build: ./frontend
+
+volumes:
+  postgres:

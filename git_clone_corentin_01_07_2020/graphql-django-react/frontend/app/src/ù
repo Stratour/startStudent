@@ -1,0 +1,144 @@
+import ApolloClient,{gql} from 'apollo-boost'
+import {HttpLink} from 'apollo-link-http'
+import {InMemoryCache} from 'apollo-cache-inmemory'
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Cookies from 'js-cookie'
+import {ApolloProvider} from '@apollo/react-hooks'
+import {Query} from 'react-apollo'
+import List,{Reducer,Shower} from './component/list'
+import omit from 'lodash'
+
+class Client {
+    constructor(uri,csrf) {
+        this.uri = uri
+        this.client = new ApolloClient({
+            uri:"http://localhost:8000/" + this.uri + '/',
+            credentials:'include',
+            request: async (operation) => {
+                let token = ""
+                await fetch("http://localhost:8000/" + csrf)
+                .then(data => data.json())
+                .then(data => token = data.csrftoken)
+                Cookies.set('csrftoken',token)
+                operation.setContext({
+                    headers:{
+                        'X-CSRFToken':token
+                    }
+                })
+            }
+        })
+    }
+}
+
+class Input extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            wrap:{}
+        }
+        for(let i in this.props) {
+            if(i != 'name') {
+                this.state.wrap[i] = this.props[i]
+            }
+        }
+        this.name = this.props.name
+    }
+    render() {
+        console.log(this.props)
+        return (
+            <input {...this.state.wrap}/>
+        )
+    }
+}
+class FormQL extends React.Component {
+    constructor(target) {
+        super()
+        this.state = {
+            send:false,
+            query:""
+        }
+    }
+    onSubmit = (events) => {
+        let value = ''
+        events.preventDefault() 
+        for(let i of this.props.children) {
+            if(i.props.name != undefined) {
+                value +! `{i.props.name}:{i.value}`
+                console.log(i.props.name)
+            }
+        }
+        this.setState({
+            send:true,
+            query
+        })
+    }
+    render() {
+        return (
+            <form onSubmit={this.onSubmit} className={this.props.className}>
+                {this.props.children}
+            </form>
+            {}
+        )
+    }
+}
+
+const client = new Client("graphql","csrf")
+const GET_USER = gql`
+    {
+        alluser {
+            username
+            password
+        }
+    }
+`
+
+
+class App extends React.Component {
+    constructor() {
+        super()
+    }
+    render() {
+        return (
+            <ApolloProvider client={client.client}>
+                <div className="App">
+                    <header className="App-header">
+                        <FormQL target="updateUser">
+                            <Input name="username" placeholder="Username"/>
+                            <input type="submit" value="Valider"/>
+                        </FormQL>
+                        <Query query={GET_USER}>
+                            {({loading,error,data}) => {
+                                if(loading) return <h2>Loading...</h2>
+                                if(error) {
+                                    console.log(error)
+                                    return <h2>Error</h2>
+                                }
+                                return (
+                                    <div>
+                                        <h2>List of users</h2>
+                                        <List>
+                                            <Reducer data={data.alluser} onHide={(index) => <p>{index.username}</p>} onShow={
+                                                (index) => {
+                                                    return (
+                                                        <div>
+                                                            <p>{index.username}</p>
+                                                            <p>{index.password}</p>
+                                                        </div>
+                                                    )
+                                            }}/>
+                                        </List> 
+                                    </div>
+                                )
+                            }}
+                        </Query>
+
+                    </header>
+                </div>
+            </ApolloProvider>
+        );
+    }
+}
+
+export default App;
